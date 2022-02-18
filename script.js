@@ -12,12 +12,21 @@ CreateBtn("-|+", negativeOnClick);
 operators.forEach((operator) => CreateBtn(operator, operatorOnClick));
 CreateBtn("C", clearOnClick);
 CreateBtn("ans", answerOnClick);
-CreateBtn(`<i class="fa-solid fa-delete-left"></i>`, deleteOnclick);
+CreateBtn(`<i class="fas fa-arrow-left"></i>`, deleteOnclick);
 CreateBtn("=", equalsOnClick);
 
 function CreateBtn(i, BtnOnClick) {
   const btn = document.createElement("button");
   btn.innerHTML = i;
+  if (btn.innerHTML == `<i class="fas fa-arrow-left"></i>`) {
+    btn.style.color = "red";
+  } else if (btn.innerHTML == "=") {
+    btn.style.background = "#1a2130";
+    btn.style.color = "#fff";
+  } else {
+    btn.style.background = "#071114";
+    btn.style.color = "#fff";
+  }
   btn.addEventListener("click", (e) => BtnOnClick(e));
   buttons.append(btn);
 }
@@ -83,6 +92,7 @@ function equalsOnClick() {
 
   let i1 = 0;
   let i2 = 1;
+  let notDone = false;
   while (i1 < operator.length) {
     n.splice(i2, 0, operator[i1]);
     i1++;
@@ -91,47 +101,48 @@ function equalsOnClick() {
   n = n.map((el) => {
     return { count: el, id: Math.random() };
   });
-  let numbers = n.map((el) => el.count);
-  while (
-    numbers.includes("×") ||
-    numbers.includes("+") ||
-    numbers.includes("÷") ||
-    numbers.includes("−")
-  ) {
+
+  while (!notDone) {
+    if (!n.some((el) => operator.includes(el.count))) {
+      notDone = true;
+    }
     let num1, num2;
     for (var i = 0; i < n.length; i++) {
-      if (numbers.includes("×") || numbers.includes("÷")) {
+      if (n.some((el) => el.count == "×" || el.count == "÷")) {
         if (n[i].count == "×" || n[i].count == "÷") {
           num1 = n[i - 1].count;
           num2 = n[i + 1].count;
-          numbers.splice(numbers.indexOf(n[i].count), 1);
           if (n[i].count === "×") {
             n.splice(n.indexOf(n[i - 1]), 3, {
               count: num1 * num2,
               id: Math.random(),
             });
+            break;
           } else {
             n.splice(n.indexOf(n[i - 1]), 3, {
               count: num1 / num2,
               id: Math.random(),
             });
+            break;
           }
         }
-      } else if (!numbers.includes("×") && !numbers.includes("÷")) {
+      } else if (!n.some((el) => el.count == "×" || el.count == "÷")) {
         if (n[i].count == "−" || n[i].count == "+") {
           num1 = +n[i - 1].count;
           num2 = +n[i + 1].count;
-          numbers.splice(numbers.indexOf(n[i].count), 1);
           if (n[i].count == "+") {
             n.splice(n.indexOf(n[i - 1]), 3, {
               count: num1 + num2,
               id: Math.random(),
             });
-          } else {
+            break;
+          } else if (n[i].count == "−") {
             n.splice(n.indexOf(n[i - 1]), 3, {
               count: num1 - num2,
               id: Math.random(),
             });
+            console.log([...n]);
+            break;
           }
         }
       }

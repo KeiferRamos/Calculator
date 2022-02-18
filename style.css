@@ -12,7 +12,7 @@ body {
   height: 100vh;
   display: grid;
   place-items: center;
-  background: #eef9fb;
+  background: #17345a;
 }
 
 .calculator {
@@ -20,9 +20,9 @@ body {
   height: 450px;
   border-radius: 10px;
   padding: 10px;
-  background: #5c8ba3;
-  box-shadow: 14px 14px 28px #a2a9ab, -14px -14px 28px #ffffff;
-  box-sizing: border-box;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #152f51, #193860);
+  box-shadow: 8px -8px 16px #091524, -8px 8px 16px #255390;
 }
 
 .text-area {
