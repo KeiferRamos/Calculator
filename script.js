@@ -164,7 +164,7 @@ function equalsOnClick() {
     if (n[0].count == "Infinity" || isNaN(n[0].count)) {
       answer.innerHTML = "Error";
     } else if (`${n[0].count}`.includes(".") && `${n[0].count}`.length > 5) {
-      answer.innerHTML = +n[0].count.toFixed(1);
+      answer.innerHTML = +n[0].count;
     } else {
       answer.innerHTML = n[0].count;
     }
