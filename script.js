@@ -46,15 +46,11 @@ function operatorOnClick(e) {
   ) {
     return;
   } else if (operators.includes(lastChar)) {
-    inputText.innerHTML = inputs.replace(
-      new RegExp(lastChar + "$"),
-      e.target.innerHTML
-    );
+    inputText.innerHTML = inputs.replace(lastChar, e.target.innerHTML);
   } else {
     inputText.innerHTML += e.target.innerHTML;
   }
 }
-// inputs.slice(-1) != "." ||
 
 function deleteOnclick() {
   const inputs = inputText.innerHTML;
@@ -164,7 +160,7 @@ function equalsOnClick() {
         }
       }
     }
-    if (n[0].count == "Infinity" || n[0].count == "NaN") {
+    if (n[0].count == "Infinity" || isNaN(n[0].count)) {
       answer.innerHTML = "Error";
     } else if (`${n[0].count}`.includes(".") && `${n[0].count}`.length > 5) {
       answer.innerHTML = +n[0].count.toFixed(1);
