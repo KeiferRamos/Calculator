@@ -46,7 +46,8 @@ function operatorOnClick(e) {
   ) {
     return;
   } else if (operators.includes(lastChar)) {
-    inputText.innerHTML = inputs.replace(lastChar, e.target.innerHTML);
+    inputText.innerHTML =
+      inputs.substring(0, inputs.length - 1) + e.target.innerHTML;
   } else {
     inputText.innerHTML += e.target.innerHTML;
   }
